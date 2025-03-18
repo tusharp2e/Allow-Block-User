@@ -1,0 +1,26 @@
+{
+  "name": "kalp-dapp-pkg",
+  "version": "1.0.4",
+  "description": "",
+  "main": "./dist/app.ts",
+  "module": "./dist/app.mjs",
+  "types": "./dist/app.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p2eengineering/kalp-wallet-dapp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/uuid": "^9.0.8",
+    "microbundle": "^0.15.1",
+    "ts-loader": "^9.5.1",
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5",
+    "uuid": "^9.0.1"
+  }
+}
