@@ -25,6 +25,7 @@ function PolygonConnect() {
     const NETWORK_NAME = "Stagenet"
     const CONTRACT_ADDRESS = "0xA17bd954dCf3B56C47f75146D27Ff30A0afF78F2";
     const GINI_ADDRESS = "0x909F99de524da90959Bf4A42180934e3129815F1";
+    const OWNER_ADDRESS= "0x37D041281eBf650330336526297b343bC455F68C";
     const GINI_ABI = giniAbi;
     const CONTRACT_ABI = abi;
     const CHAIN_ID = "0x13882";
@@ -36,6 +37,7 @@ function PolygonConnect() {
     // const NETWORK_NAME = "Mainnet"
     // const CONTRACT_ADDRESS = "0xcB0d103fa126C81dA139e6f372886fc5e1e58F9d";
     // const GINI_ADDRESS = "0xA1A39558718d6FA57C699dC45981e5a1b2e25d08";
+    // const OWNER_ADDRESS= "0xCA62e07a9950f4dE5c3F1CE36A6e7cD10D571567";
     // const GINI_ABI = giniAbi;
     // const CONTRACT_ABI = abi;
     // const CHAIN_ID = "0x89";
@@ -175,6 +177,7 @@ function PolygonConnect() {
                 <div className="wallet-info">
                     <p>Network Name : {NETWORK_NAME}</p>
                     <p>Gini Address : {GINI_ADDRESS}</p>
+                    <p>Owner of Gini: {OWNER_ADDRESS}</p>
                     <div className="input-group">
                         <input type="text" placeholder="Enter whitelist address" value={whiteListAddress} onChange={(e) => setWhiteListAddress(e.target.value)} className="input" />
                         <button onClick={whiteListToken} className="btn btn-blue">WhiteList Address</button>
