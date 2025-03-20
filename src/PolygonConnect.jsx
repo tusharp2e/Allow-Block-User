@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as XLSX from "xlsx";
 import abi from "./contracts/kalpBridge.json";
 import giniAbi from "./contracts/giniContract.json";
 import { ethers } from "ethers";

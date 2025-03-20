@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
-import { Network, submitTransaction, evaluateTransaction } from "kalp-wallet-ts";
+
 import { PolygonConnect } from "./PolygonConnect";
 import "./App.css";
 
