@@ -1,0 +1,10 @@
+{
+    "prettier.printWidth": 140,               // Set the maximum line length to 120 characters
+    "prettier.tabWidth": 2,                   // Set the number of spaces per indentation level
+    "prettier.useTabs": true,                // Use spaces instead of tabs (set to true for tabs)
+    "prettier.singleQuote": false,             // Use single quotes instead of double quotes
+    "prettier.trailingComma": "es5",          // Add trailing commas where valid in ES5 (like objects, arrays)
+    "prettier.bracketSpacing": true,          // Print spaces between brackets in object literals
+    "editor.formatOnSave": false,              // Format files on save
+    "editor.defaultFormatter": "esbenp.prettier-vscode"  // Make sure Prettier is the default formatter
+  }
