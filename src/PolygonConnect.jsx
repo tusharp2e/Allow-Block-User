@@ -21,7 +21,8 @@ function PolygonConnect() {
 	const [receiver, setReceiver] = useState("");
 	const [whiteListAddress, setWhiteListAddress] = useState("");
 	const [blackListAddress, setBlackListAddress] = useState("");
-
+    const [excelData, setExcelData] = useState([]);
+    
     // stagenet - polygon amoy
     // const NETWORK_NAME = "Stagenet"
     // const CONTRACT_ADDRESS = "0xA17bd954dCf3B56C47f75146D27Ff30A0afF78F2";
@@ -136,6 +137,110 @@ function PolygonConnect() {
 		}
 	};
 
+     // Handle File Upload
+     const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                console.log("data", data)
+                const workbook = XLSX.read(data, { type: "array" });
+                console.log("workbook", workbook)
+                const sheetName = workbook.SheetNames[0]; // Get first sheet
+                console.log("sheetname", sheetName)
+
+                const sheet = workbook.Sheets[sheetName];
+                console.log("sheet", sheet)
+
+                const parsedData = XLSX.utils.sheet_to_json(sheet); // Convert sheet to JSON
+                console.log("parsedData", parsedData)
+
+                setExcelData(parsedData);
+            };
+        }
+    };
+
+    const blacklistExcelAddressess = async () => {
+        if (!giniContract) {
+            alert("Smart contract not initialized!");
+            return;
+        }
+
+        if (!excelData.length) {
+            alert("No addresses found in the uploaded file!");
+            return;
+        }
+
+        setStatusMessage("Processing addresses...");
+
+        try {
+            for (const entry of excelData) {
+                const address = entry["Ethereum Address"];
+                if (ethers.isAddress(address)) {
+                    console.log(`Processing: ${address}`);
+
+                    try {
+                        const tx = await giniContract.deny(address);
+                        await tx.wait();
+                        console.log(`Blacklisted: ${address} (Tx: ${tx.hash})`);
+                    } catch (txError) {
+                        console.error(`Failed to Blacklist ${address}:`, txError);
+                    }
+                } else {
+                    console.warn(`Invalid address skipped: ${address}`);
+                }
+            }
+
+            setStatusMessage("Processing complete!");
+            alert("All valid addresses processed successfully!");
+        } catch (error) {
+            console.error("Error processing addresses:", error);
+            setStatusMessage("Error occurred during processing.");
+        }
+    };
+
+    const whitelistExcelAddressess = async () => {
+        if (!giniContract) {
+            alert("Smart contract not initialized!");
+            return;
+        }
+
+        if (!excelData.length) {
+            alert("No addresses found in the uploaded file!");
+            return;
+        }
+
+        setStatusMessage("Processing addresses...");
+
+        try {
+            for (const entry of excelData) {
+                const address = entry["Ethereum Address"];
+                if (ethers.isAddress(address)) {
+                    console.log(`Processing: ${address}`);
+
+                    try {
+                        const tx = await giniContract.allow(address);
+                        await tx.wait();
+                        console.log(`Whitelisted: ${address} (Tx: ${tx.hash})`);
+                    } catch (txError) {
+                        console.error(`Failed to Whitelist ${address}:`, txError);
+                    }
+                } else {
+                    console.warn(`Invalid address skipped: ${address}`);
+                }
+            }
+
+            setStatusMessage("Processing complete!");
+            alert("All valid addresses processed successfully!");
+        } catch (error) {
+            console.error("Error processing addresses:", error);
+            setStatusMessage("Error occurred during processing.");
+        }
+    };
+
 	const whiteListToken = async () => {
 		if (!whiteListAddress || isNaN(whiteListAddress)) {
 			alert("Enter a valid amount!");
@@ -176,6 +281,7 @@ function PolygonConnect() {
 				<div className="wallet-info">
 					<p>Network Name : {NETWORK_NAME}</p>
 					<p>Gini Address : {GINI_ADDRESS}</p>
+                    <p>Owner : {OWNER_ADDRESS}</p>
 					<div className="input-group">
 						<input
 							type="text"
@@ -200,6 +306,14 @@ function PolygonConnect() {
 							BlackList Address
 						</button>
 					</div>
+                    <div className="upload-section">
+                         <h2 className="text-xl font-bold mb-2">Upload Excel File</h2>
+                         <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} className="input" />
+                     </div>
+                     <button onClick={blacklistExcelAddressess} className="btn btn-blue mt-2">Blacklist Addresses</button>
+                     {statusMessage && <p className="status-message">{statusMessage}</p>}
+                     <button onClick={whitelistExcelAddressess} className="btn btn-blue mt-2">Whitelist Addresses</button>
+                     {statusMessage && <p className="status-message">{statusMessage}</p>}
 				</div>
 			) : (
 				<button onClick={connectWallet} className="btn">
