@@ -22,34 +22,36 @@ function PolygonConnect() {
 	const [whiteListAddress, setWhiteListAddress] = useState("");
 	const [blackListAddress, setBlackListAddress] = useState("");
 
-	// stagenet - polygon amoy
-	const NETWORK_NAME = "Stagenet";
-	const CONTRACT_ADDRESS = "0xA17bd954dCf3B56C47f75146D27Ff30A0afF78F2";
-	const GINI_ADDRESS = "0x909F99de524da90959Bf4A42180934e3129815F1";
-	const GINI_ABI = giniAbi;
-	const CONTRACT_ABI = abi;
-	const CHAIN_ID = "0x13882";
-	const RPC_URL = "https://polygon-amoy.g.alchemy.com/v2/m8XKrD1n0ZnGfcQMEXXW5Q46qmgGmD7w";
-	const CHAIN_NAME = "Amoy";
-	const CURRENCY_SYMBOL = "Matic";
+    // stagenet - polygon amoy
+    // const NETWORK_NAME = "Stagenet"
+    // const CONTRACT_ADDRESS = "0xA17bd954dCf3B56C47f75146D27Ff30A0afF78F2";
+    // const GINI_ADDRESS = "0x909F99de524da90959Bf4A42180934e3129815F1";
+    // const OWNER_ADDRESS= "0x37D041281eBf650330336526297b343bC455F68C";
+    // const GINI_ABI = giniAbi;
+    // const CONTRACT_ABI = abi;
+    // const CHAIN_ID = "0x13882";
+    // const RPC_URL = "https://polygon-amoy.g.alchemy.com/v2/m8XKrD1n0ZnGfcQMEXXW5Q46qmgGmD7w";
+    // const CHAIN_NAME = "Amoy";
+    // const CURRENCY_SYMBOL = "Matic";
 
-	// Mainnet
-	// const NETWORK_NAME = "Mainnet"
-	// const CONTRACT_ADDRESS = "0xcB0d103fa126C81dA139e6f372886fc5e1e58F9d";
-	// const GINI_ADDRESS = "0xA1A39558718d6FA57C699dC45981e5a1b2e25d08";
-	// const GINI_ABI = giniAbi;
-	// const CONTRACT_ABI = abi;
-	// const CHAIN_ID = "0x89";
-	// const RPC_URL = "https://polygon-rpc.com";
-	// const CHAIN_NAME = "Polygon";
-	// const CURRENCY_SYMBOL = "Matic";
+    // Mainnet 
+    const NETWORK_NAME = "Mainnet"
+    const CONTRACT_ADDRESS = "0xcB0d103fa126C81dA139e6f372886fc5e1e58F9d";
+    const GINI_ADDRESS = "0xA1A39558718d6FA57C699dC45981e5a1b2e25d08";
+    const OWNER_ADDRESS= "0xCA62e07a9950f4dE5c3F1CE36A6e7cD10D571567";
+    const GINI_ABI = giniAbi;
+    const CONTRACT_ABI = abi;
+    const CHAIN_ID = "0x89";
+    const RPC_URL = "https://polygon-rpc.com";
+    const CHAIN_NAME = "Polygon";
+    const CURRENCY_SYMBOL = "Matic";
 
-	// Check if MetaMask is installed
-	useEffect(() => {
-		if (!window.ethereum) {
-			setError("MetaMask is not installed. Please install it to use this app.");
-		}
-	}, []);
+    // Check if MetaMask is installed
+    useEffect(() => {
+        if (!window.ethereum) {
+            setError("MetaMask is not installed. Please install it to use this app.");
+        }
+    }, []);
 
 	// Connect to MetaMask
 	const connectWallet = async () => {
